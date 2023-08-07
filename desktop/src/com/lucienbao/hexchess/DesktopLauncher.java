@@ -5,11 +5,13 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.lucienbao.hexchess.HexChess;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
+
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main (String[] args) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("HexChess");
-		config.setWindowedMode(1920, 1080);
+		config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
+//		config.setWindowedMode(1920, 1080);
 		config.setForegroundFPS(60);
 		new Lwjgl3Application(new HexChess(), config);
 	}
