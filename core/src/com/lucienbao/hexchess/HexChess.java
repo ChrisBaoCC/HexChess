@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.lucienbao.ui.Button;
 import com.lucienbao.utils.AssetLoader;
 import com.lucienbao.utils.InputHandler;
 
@@ -22,8 +21,6 @@ public class HexChess extends Game {
 	public BitmapFont mediumFont;
 	public BitmapFont bigFont;
 	public OrthographicCamera camera;
-
-	public ArrayList<Button> buttons;
 
 	public static final int SCREEN_WIDTH = 1920;
 	public static final int SCREEN_HEIGHT = 1080;
@@ -45,7 +42,6 @@ public class HexChess extends Game {
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, 1920, 1080);
 
-		buttons = new ArrayList<>();
 		AssetLoader.load();
 
 		Gdx.input.setInputProcessor(new InputHandler(this));
@@ -60,6 +56,7 @@ public class HexChess extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		shapes.dispose();
 		mediumFont.dispose();
 		bigFont.dispose();
 

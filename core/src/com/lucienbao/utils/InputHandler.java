@@ -2,8 +2,10 @@ package com.lucienbao.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.lucienbao.hexchess.HexChess;
+import com.lucienbao.hexchess.PlayScreen;
 import com.lucienbao.hexchess.TitleScreen;
 import com.lucienbao.ui.Button;
 
@@ -38,13 +40,21 @@ public class InputHandler implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int mouseButton) {
         // Call mouseMoved() to check for buttons being hovered
         mouseMoved(screenX, screenY);
+        screenY = HexChess.SCREEN_HEIGHT - screenY;
 
-        for(Button button : game.buttons) {
+        if(game.getScreen() instanceof TitleScreen) {
+            TitleScreen titleScreen = (TitleScreen) game.getScreen();
+            if(titleScreen.getPlayButton().isHovered()) {
+                game.setScreen(new PlayScreen(game));
+                titleScreen.dispose();
+            } else if(titleScreen.getRulesButton().isHovered()) {
+                System.out.println("Implement me!");
+            } else if(titleScreen.getExitButton().isHovered())
+                Gdx.app.exit();
+        } else if(game.getScreen() instanceof PlayScreen) {
             // TODO: implement
-            if(button.isHovered()) {
-                System.out.println("clicked");
-            }
         }
+
         return true;
     }
 
@@ -65,17 +75,16 @@ public class InputHandler implements InputProcessor {
         screenY = HexChess.SCREEN_HEIGHT - screenY;
 
         if(game.getScreen() instanceof TitleScreen) {
-            boolean hovering = false;
-            for(Button button : game.buttons) {
-                if(button.checkHovered(screenX, screenY)) {
-                    hovering = true;
-                }
-            }
+            TitleScreen titleScreen = (TitleScreen) game.getScreen();
+            boolean hovering = titleScreen.checkButtonHover(screenX, screenY);
 
             if(hovering)
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
             else
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+        } else if(game.getScreen() instanceof PlayScreen) {
+            // TODO: implement
+            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
         return true;
     }

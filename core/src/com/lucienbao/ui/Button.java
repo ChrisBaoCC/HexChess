@@ -69,8 +69,6 @@ public class Button {
                 width, height);
     }
 
-    // TODO: GET THE EXIT BUTTON TO WORK!!!!
-
     /**
      * Displays the button text.
      * <p>
