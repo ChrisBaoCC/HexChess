@@ -5,47 +5,48 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.lucienbao.ui.Button;
 import com.lucienbao.utils.AssetLoader;
 
 public class TitleScreen implements Screen {
-    final HexChess game;
-    final SpriteBatch batch;
-    final ShapeRenderer shapes;
+    private final HexChess game;
+    private final SpriteBatch batch;
+    private final ShapeRenderer shapes;
 
-    final TextureRegion[][] pieces;
-    final Texture splash;
+    private final Texture splash;
+
+    private final Button playButton;
+    private final Button rulesButton;
+    private final Button exitButton;
 
     public TitleScreen(final HexChess game) {
         this.game = game;
         this.batch = game.batch;
         this.shapes = game.shapes;
-        this.pieces = AssetLoader.pieces;
         this.splash = AssetLoader.splash;
 
-        game.buttons.add(new Button("Play!",
+        this.playButton = new Button("Play!",
                 HexChess.SCREEN_WIDTH * 5/16,
                 HexChess.SCREEN_HEIGHT / 2 + 100,
                 250, 75,
                 HexChess.BUTTON_PASSIVE,
                 HexChess.BUTTON_HOVERED,
-                game.mediumFont));
-        game.buttons.add(new Button("Rules",
+                game.mediumFont);
+        this.rulesButton = new Button("Rules",
                 HexChess.SCREEN_WIDTH * 5/16,
                 HexChess.SCREEN_HEIGHT / 2,
                 250, 75,
                 HexChess.BUTTON_PASSIVE,
                 HexChess.BUTTON_HOVERED,
-                game.mediumFont));
-        game.buttons.add(new Button("Exit",
+                game.mediumFont);
+        this.exitButton = new Button("Exit",
                 HexChess.SCREEN_WIDTH * 5/16,
                 HexChess.SCREEN_HEIGHT / 2 - 100,
                 250, 75,
                 HexChess.BUTTON_PASSIVE,
                 HexChess.BUTTON_HOVERED,
-                game.mediumFont));
+                game.mediumFont);
     }
 
     @Override
@@ -56,7 +57,10 @@ public class TitleScreen implements Screen {
     @Override
     public void render(float delta) {
         // Clear screen with black
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(HexChess.BACKGROUND_COLOR.r,
+                HexChess.BACKGROUND_COLOR.g,
+                HexChess.BACKGROUND_COLOR.b,
+                HexChess.BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // Draw shapes (hexes etc.)
@@ -66,9 +70,9 @@ public class TitleScreen implements Screen {
                 (float) HexChess.SCREEN_HEIGHT * 3/8,
                 200, true);
 
-        for(Button button : game.buttons) {
-            button.displayButtonBackground(shapes);
-        }
+        playButton.displayButtonBackground(shapes);
+        rulesButton.displayButtonBackground(shapes);
+        exitButton.displayButtonBackground(shapes);
         shapes.end();
 
         // Draw sprites (pieces and other images)
@@ -81,9 +85,9 @@ public class TitleScreen implements Screen {
                 (float) HexChess.SCREEN_WIDTH * 2/3 - (float) splash.getWidth()/2,
                 (float) HexChess.SCREEN_HEIGHT * 3/8 - (float) splash.getHeight()/2);
 
-        for(Button button : game.buttons) {
-            button.displayButtonText(batch);
-        }
+        playButton.displayButtonText(batch);
+        rulesButton.displayButtonText(batch);
+        exitButton.displayButtonText(batch);
         batch.end();
     }
 
@@ -110,5 +114,32 @@ public class TitleScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    /**
+     * Check if any of the buttons belonging to this screen are being
+     * hovered over.
+     * @param mouseX Mouse x-coordinate.
+     * @param mouseY Mouse y-coordinate.
+     * @return Whether the mouse is hovering over one of this screen's buttons.
+     */
+    public boolean checkButtonHover(int mouseX, int mouseY) {
+        if(playButton.checkHovered(mouseX, mouseY))
+            return true;
+        if(rulesButton.checkHovered(mouseX, mouseY))
+            return true;
+        return exitButton.checkHovered(mouseX, mouseY);
+    }
+
+    public Button getPlayButton() {
+        return playButton;
+    }
+
+    public Button getRulesButton() {
+        return rulesButton;
+    }
+
+    public Button getExitButton() {
+        return exitButton;
     }
 }

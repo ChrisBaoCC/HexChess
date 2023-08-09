@@ -9,6 +9,8 @@ public class AssetLoader {
     public static TextureRegion[][] pieces;
     public static Texture splash;
 
+    public static final int PIECE_WIDTH = 64;
+
     // TODO: sounds
 
     public static void load() {
