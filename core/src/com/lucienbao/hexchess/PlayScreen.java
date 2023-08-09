@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.lucienbao.board.Board;
 import com.lucienbao.board.Hex;
+import com.lucienbao.ui.Button;
 import com.lucienbao.utils.AssetLoader;
 
 import static java.lang.Math.sqrt;
@@ -24,8 +25,16 @@ public class PlayScreen implements Screen {
     public static final float HEX_WIDTH = 96;
     public static final float HEX_NEST_WIDTH = HEX_WIDTH * 3f/4;
     public static final float HEX_HEIGHT = (float) (HEX_WIDTH * sqrt(3) / 2);
-    public static final int BOARD_CENTER_X = 700;
+    public static final int BOARD_CENTER_X = 750;
     public static final int BOARD_CENTER_Y = 540;
+
+    public static final int EXIT_BTN_X = 100;
+    public static final int EXIT_BTN_Y = 1018;
+    public static final int EXIT_BTN_WIDTH = 150;
+    public static final int EXIT_BTN_HEIGHT = 75;
+
+    // TODO: add pause button
+    private final Button quitButton;
 
     public PlayScreen(final HexChess game) {
         this.game = game;
@@ -33,7 +42,15 @@ public class PlayScreen implements Screen {
         this.shapes = game.shapes;
         this.pieceImages = AssetLoader.pieces;
 
-        board = new Board();
+        this.board = new Board();
+
+        this.quitButton = new Button("Quit",
+                EXIT_BTN_X,
+                EXIT_BTN_Y,
+                EXIT_BTN_WIDTH, EXIT_BTN_HEIGHT,
+                HexChess.BUTTON_PASSIVE,
+                HexChess.BUTTON_HOVERED,
+                game.mediumFont);
     }
 
     @Override
@@ -53,9 +70,16 @@ public class PlayScreen implements Screen {
         // Draw shapes
         drawBoard();
 
+        shapes.begin(ShapeRenderer.ShapeType.Filled);
+        quitButton.displayButtonBackground(shapes);
+        shapes.end();
+
         // Draw pieces
-//        game.drawCenteredText(0, "PlayScreen", 1920/2, 1080/2);
         drawPieces();
+
+        batch.begin();
+        quitButton.displayButtonText(batch);
+        batch.end();
     }
 
     /**
@@ -147,5 +171,20 @@ public class PlayScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    /**
+     * Check if any of the buttons belonging to this screen are being
+     * hovered over.
+     * @param mouseX Mouse x-coordinate.
+     * @param mouseY Mouse y-coordinate.
+     * @return Whether the mouse is hovering over one of this screen's buttons.
+     */
+    public boolean checkButtonHover(int mouseX, int mouseY) {
+        return quitButton.checkHovered(mouseX, mouseY);
+    }
+
+    public Button getQuitButton() {
+        return quitButton;
     }
 }

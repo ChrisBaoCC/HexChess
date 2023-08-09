@@ -2,12 +2,10 @@ package com.lucienbao.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.lucienbao.hexchess.HexChess;
 import com.lucienbao.hexchess.PlayScreen;
 import com.lucienbao.hexchess.TitleScreen;
-import com.lucienbao.ui.Button;
 
 public class InputHandler implements InputProcessor {
     private final HexChess game;
@@ -53,6 +51,11 @@ public class InputHandler implements InputProcessor {
                 Gdx.app.exit();
         } else if(game.getScreen() instanceof PlayScreen) {
             // TODO: implement
+            PlayScreen playScreen = (PlayScreen) game.getScreen();
+            if(playScreen.getQuitButton().isHovered()) {
+                game.setScreen(new TitleScreen(game));
+                playScreen.dispose();
+            }
         }
 
         return true;
@@ -84,7 +87,13 @@ public class InputHandler implements InputProcessor {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         } else if(game.getScreen() instanceof PlayScreen) {
             // TODO: implement
-            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            PlayScreen playScreen = (PlayScreen) game.getScreen();
+            boolean hovering = playScreen.checkButtonHover(screenX, screenY);
+
+            if(hovering)
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            else
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
         return true;
     }

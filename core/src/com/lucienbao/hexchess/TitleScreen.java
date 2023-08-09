@@ -20,6 +20,9 @@ public class TitleScreen implements Screen {
     private final Button rulesButton;
     private final Button exitButton;
 
+    public static final int BUTTON_WIDTH = 250;
+    public static final int BUTTON_HEIGHT = 75;
+
     public TitleScreen(final HexChess game) {
         this.game = game;
         this.batch = game.batch;
@@ -29,21 +32,21 @@ public class TitleScreen implements Screen {
         this.playButton = new Button("Play!",
                 HexChess.SCREEN_WIDTH * 5/16,
                 HexChess.SCREEN_HEIGHT / 2 + 100,
-                250, 75,
+                BUTTON_WIDTH, BUTTON_HEIGHT,
                 HexChess.BUTTON_PASSIVE,
                 HexChess.BUTTON_HOVERED,
                 game.mediumFont);
         this.rulesButton = new Button("Rules",
                 HexChess.SCREEN_WIDTH * 5/16,
                 HexChess.SCREEN_HEIGHT / 2,
-                250, 75,
+                BUTTON_WIDTH, BUTTON_HEIGHT,
                 HexChess.BUTTON_PASSIVE,
                 HexChess.BUTTON_HOVERED,
                 game.mediumFont);
         this.exitButton = new Button("Exit",
                 HexChess.SCREEN_WIDTH * 5/16,
                 HexChess.SCREEN_HEIGHT / 2 - 100,
-                250, 75,
+                BUTTON_WIDTH, BUTTON_HEIGHT,
                 HexChess.BUTTON_PASSIVE,
                 HexChess.BUTTON_HOVERED,
                 game.mediumFont);

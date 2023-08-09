@@ -22,7 +22,7 @@ public class Board {
             for(int rank = 0; rank < getNumRanks(file); rank++)
                 grid[file][rank] = new Hex(Hex.EMPTY, Hex.EMPTY);
 
-        // Add the pieces
+        // White pieces
         setHex(0, 1, Hex.WHITE, Hex.PAWN);
         setHex(0, 2, Hex.WHITE, Hex.ROOK);
         setHex(0, 3, Hex.WHITE, Hex.KNIGHT);
@@ -43,6 +43,28 @@ public class Board {
         setHex(3, 6, Hex.WHITE, Hex.PAWN);
         setHex(2, 7, Hex.WHITE, Hex.PAWN);
         setHex(1, 8, Hex.WHITE, Hex.PAWN);
+
+        // Black pieces
+        setHex(6, 1, Hex.BLACK, Hex.PAWN);
+        setHex(7, 2, Hex.BLACK, Hex.ROOK);
+        setHex(8, 3, Hex.BLACK, Hex.KNIGHT);
+        setHex(9, 4, Hex.BLACK, Hex.QUEEN);
+        setHex(10, 5, Hex.BLACK, Hex.BISHOP);
+        setHex(9, 6, Hex.BLACK, Hex.KING);
+        setHex(8, 7, Hex.BLACK, Hex.KNIGHT);
+        setHex(7, 8, Hex.BLACK, Hex.ROOK);
+        setHex(6, 9, Hex.BLACK, Hex.PAWN);
+
+        setHex(9, 5, Hex.BLACK, Hex.BISHOP);
+        setHex(8, 5, Hex.BLACK, Hex.BISHOP);
+
+        setHex(6, 2, Hex.BLACK, Hex.PAWN);
+        setHex(6, 3, Hex.BLACK, Hex.PAWN);
+        setHex(6, 4, Hex.BLACK, Hex.PAWN);
+        setHex(6, 5, Hex.BLACK, Hex.PAWN);
+        setHex(6, 6, Hex.BLACK, Hex.PAWN);
+        setHex(6, 7, Hex.BLACK, Hex.PAWN);
+        setHex(6, 8, Hex.BLACK, Hex.PAWN);
     }
 
     /**
