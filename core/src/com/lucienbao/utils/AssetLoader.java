@@ -9,6 +9,13 @@ public class AssetLoader {
     public static TextureRegion[][] pieces;
     public static Texture splash;
 
+    public static Texture pawnDiagram;
+    public static Texture knightDiagram;
+    public static Texture bishopDiagram;
+    public static Texture rookDiagram;
+    public static Texture queenDiagram;
+    public static Texture kingDiagram;
+
     public static final int PIECE_WIDTH = 64;
 
     // TODO: sounds
@@ -27,6 +34,13 @@ public class AssetLoader {
         }
 
         splash = new Texture(Gdx.files.internal("caliente/knight-big.png"));
+
+        pawnDiagram = new Texture(Gdx.files.internal("pawn-diagram.png"));
+        knightDiagram = new Texture(Gdx.files.internal("knight-diagram.png"));
+        bishopDiagram = new Texture(Gdx.files.internal("bishop-diagram.png"));
+        rookDiagram = new Texture(Gdx.files.internal("rook-diagram.png"));
+        queenDiagram = new Texture(Gdx.files.internal("queen-diagram.png"));
+        kingDiagram = new Texture(Gdx.files.internal("king-diagram.png"));
     }
 
     public static void dispose() {

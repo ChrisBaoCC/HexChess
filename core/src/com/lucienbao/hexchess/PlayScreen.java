@@ -28,10 +28,10 @@ public class PlayScreen implements Screen {
     public static final int BOARD_CENTER_X = 750;
     public static final int BOARD_CENTER_Y = 540;
 
-    public static final int EXIT_BTN_X = 100;
-    public static final int EXIT_BTN_Y = 1018;
-    public static final int EXIT_BTN_WIDTH = 150;
-    public static final int EXIT_BTN_HEIGHT = 75;
+    public static final int QUIT_BTN_X = 100;
+    public static final int QUIT_BTN_Y = 1018;
+    public static final int QUIT_BTN_WIDTH = 150;
+    public static final int QUIT_BTN_HEIGHT = 75;
 
     // TODO: add pause button
     private final Button quitButton;
@@ -45,9 +45,9 @@ public class PlayScreen implements Screen {
         this.board = new Board();
 
         this.quitButton = new Button("Quit",
-                EXIT_BTN_X,
-                EXIT_BTN_Y,
-                EXIT_BTN_WIDTH, EXIT_BTN_HEIGHT,
+                QUIT_BTN_X,
+                QUIT_BTN_Y,
+                QUIT_BTN_WIDTH, QUIT_BTN_HEIGHT,
                 HexChess.BUTTON_PASSIVE,
                 HexChess.BUTTON_HOVERED,
                 game.mediumFont);
@@ -74,7 +74,8 @@ public class PlayScreen implements Screen {
         quitButton.displayButtonBackground(shapes);
         shapes.end();
 
-        // Draw pieces
+        // Draw images/text
+        drawCoordinates();
         drawPieces();
 
         batch.begin();
@@ -124,6 +125,32 @@ public class PlayScreen implements Screen {
         }
 
         shapes.end();
+    }
+
+    /**
+     * Draw the coordinate hints along the sides of the board.
+     */
+    private void drawCoordinates() {
+        batch.begin();
+        // Draw the files a-k along the bottom
+        for(int file = 0; file < 11; file++) {
+            game.drawCenteredText(0, (char) ('a' + file) + "",
+                    Board.getX(-1, file),
+                    Board.getY(-1, file) + HEX_HEIGHT / 5);
+        }
+        // Draw the ranks 1-6 along the left side
+        for(int rank = 0; rank < 6; rank++) {
+            game.drawCenteredText(0, rank + 1 + "",
+                    Board.getX(rank, -1),
+                    Board.getY(rank, -1) + HEX_HEIGHT / 10);
+        }
+        // Draw the ranks 7-11 along the top left side (diagonal)
+        for(int rank = 6; rank < 11; rank++) {
+            game.drawCenteredText(0, rank + 1 + "",
+                    Board.getX(rank, -6 + rank),
+                    Board.getY(rank, -6 + rank) + HEX_HEIGHT / 5);
+        }
+        batch.end();
     }
 
     /**

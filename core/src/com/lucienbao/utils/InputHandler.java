@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.lucienbao.hexchess.HexChess;
 import com.lucienbao.hexchess.PlayScreen;
+import com.lucienbao.hexchess.RulesScreen;
 import com.lucienbao.hexchess.TitleScreen;
 
 public class InputHandler implements InputProcessor {
@@ -46,11 +47,31 @@ public class InputHandler implements InputProcessor {
                 game.setScreen(new PlayScreen(game));
                 titleScreen.dispose();
             } else if(titleScreen.getRulesButton().isHovered()) {
-                System.out.println("Implement me!");
+                game.setScreen(new RulesScreen(game));
+                titleScreen.dispose();
             } else if(titleScreen.getExitButton().isHovered())
                 Gdx.app.exit();
-        } else if(game.getScreen() instanceof PlayScreen) {
-            // TODO: implement
+        }
+
+        else if(game.getScreen() instanceof RulesScreen) {
+            RulesScreen rulesScreen = (RulesScreen) game.getScreen();
+            if(rulesScreen.getBackButton().isHovered()) {
+                game.setScreen(new TitleScreen(game));
+                rulesScreen.dispose();
+            }
+
+            // TODO: implement slideshow
+            else if(rulesScreen.getPrevButton().isHovered()) {
+                rulesScreen.previousSlide();
+            }
+
+            else if(rulesScreen.getNextButton().isHovered()) {
+                rulesScreen.nextSlide();
+            }
+        }
+
+        else if(game.getScreen() instanceof PlayScreen) {
+            // TODO: implement piece movement
             PlayScreen playScreen = (PlayScreen) game.getScreen();
             if(playScreen.getQuitButton().isHovered()) {
                 game.setScreen(new TitleScreen(game));
@@ -85,7 +106,19 @@ public class InputHandler implements InputProcessor {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
             else
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-        } else if(game.getScreen() instanceof PlayScreen) {
+        }
+
+        else if(game.getScreen() instanceof RulesScreen) {
+            RulesScreen rulesScreen = (RulesScreen) game.getScreen();
+            boolean hovering = rulesScreen.checkButtonHover(screenX, screenY);
+
+            if(hovering)
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            else
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+        }
+
+        else if(game.getScreen() instanceof PlayScreen) {
             // TODO: implement
             PlayScreen playScreen = (PlayScreen) game.getScreen();
             boolean hovering = playScreen.checkButtonHover(screenX, screenY);
@@ -95,6 +128,7 @@ public class InputHandler implements InputProcessor {
             else
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
+
         return true;
     }
 

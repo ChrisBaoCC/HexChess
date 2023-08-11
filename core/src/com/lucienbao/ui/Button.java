@@ -15,6 +15,7 @@ public class Button {
     private final BitmapFont font;
 
     private boolean hovered;
+    private boolean hidden;
 
     // TODO: rounded corners?
     public Button(String text, int x, int y, int width, int height,
@@ -31,6 +32,7 @@ public class Button {
         this.font = font;
 
         this.hovered = false;
+        this.hidden = false;
     }
 
     /**
@@ -41,7 +43,8 @@ public class Button {
      * this button.
      */
     public boolean checkHovered(int mouseX, int mouseY) {
-        return this.hovered = this.x - this.width/2 < mouseX
+        return this.hovered = !this.hidden
+                    && this.x - this.width/2 < mouseX
                     && mouseX < this.x + this.width/2
                     && this.y - this.height/2 < mouseY
                     && mouseY < this.y + this.height/2;
@@ -59,6 +62,9 @@ public class Button {
      * @param shapes The <code>ShapeRenderer</code> to use.
      */
     public void displayButtonBackground(ShapeRenderer shapes) {
+        if(this.hidden)
+            return;
+
         if(this.hovered)
             shapes.setColor(bgHover);
         else
@@ -76,9 +82,16 @@ public class Button {
      * @param batch The <code>SpriteBatch</code> to use.
      */
     public void displayButtonText(SpriteBatch batch) {
+        if(this.hidden)
+            return;
+
         GlyphLayout gl = new GlyphLayout(this.font, this.text);
         this.font.draw(batch, this.text,
                 x - gl.width/2,
                 y + gl.height/2);
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 }
