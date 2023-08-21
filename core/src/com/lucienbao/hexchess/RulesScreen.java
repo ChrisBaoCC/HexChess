@@ -207,7 +207,6 @@ public class RulesScreen implements Screen {
         prevButton.displayButtonText(batch);
         nextButton.displayButtonText(batch);
 
-        // TODO: implement slideshow
         if(slideNumber > 0 && slideNumber < NUM_SLIDES-1) {
             Texture diagram = diagrams[slideNumber-1];
             batch.draw(diagram,

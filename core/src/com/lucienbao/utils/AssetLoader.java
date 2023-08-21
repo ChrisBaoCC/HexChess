@@ -1,6 +1,7 @@
 package com.lucienbao.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -16,9 +17,13 @@ public class AssetLoader {
     public static Texture queenDiagram;
     public static Texture kingDiagram;
 
-    public static final int PIECE_WIDTH = 64;
+    public static Sound move;
+    public static Sound capture;
+    public static Sound error;
+    public static Sound lowTime;
+    public static Sound gameStartEnd; // TODO: also play sound on game end condition
 
-    // TODO: sounds
+    public static final int PIECE_WIDTH = 64;
 
     public static void load() {
         texture = new Texture(Gdx.files.internal("caliente/texture.png"));
@@ -41,6 +46,12 @@ public class AssetLoader {
         rookDiagram = new Texture(Gdx.files.internal("rook-diagram.png"));
         queenDiagram = new Texture(Gdx.files.internal("queen-diagram.png"));
         kingDiagram = new Texture(Gdx.files.internal("king-diagram.png"));
+
+        move = Gdx.audio.newSound(Gdx.files.internal("move.wav"));
+        capture = Gdx.audio.newSound(Gdx.files.internal("capture.wav"));
+        error = Gdx.audio.newSound(Gdx.files.internal("error.wav"));
+        lowTime = Gdx.audio.newSound(Gdx.files.internal("low-time.wav"));
+        gameStartEnd = Gdx.audio.newSound(Gdx.files.internal("game-start-end.wav"));
     }
 
     public static void dispose() {

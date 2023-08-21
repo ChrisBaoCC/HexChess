@@ -13,11 +13,42 @@ public class Hex {
 
     public static final int EMPTY = -1;
 
+    private int rank, file;
     private int color, id;
 
-    public Hex(int color, int id) {
+    public Hex(int file, int rank, int color, int id) {
+        this.file = file;
+        this.rank = rank;
         this.color = color;
         this.id = id;
+    }
+
+    /**
+     * Return whether the piece is selectable given the
+     * current player to move.
+     * @param whiteToMove If White is to move.
+     * @return Whether the player whose turn it is controls
+     * this piece.
+     */
+    public boolean correctColor(boolean whiteToMove) {
+        return (whiteToMove && color == WHITE)
+                || (!whiteToMove && color == BLACK);
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public int getFile() {
+        return file;
+    }
+
+    public void setFile(int file) {
+        this.file = file;
     }
 
     public int getColor() {
@@ -26,6 +57,16 @@ public class Hex {
 
     public int getId() {
         return id;
+    }
+
+    public void setPiece(int color, int id) {
+        this.color = color;
+        this.id = id;
+    }
+
+    public void setEmpty() {
+        setColor(EMPTY);
+        setId(EMPTY);
     }
 
     public void setColor(int color) {

@@ -1,6 +1,7 @@
 package com.lucienbao.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.lucienbao.hexchess.HexChess;
@@ -31,8 +32,16 @@ public class InputHandler implements InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+    public boolean touchDown(int screenX, int screenY, int pointer, int mouseButton) {
+        if(!(game.getScreen() instanceof PlayScreen))
+            return true;
+
+        screenY = HexChess.SCREEN_HEIGHT - screenY;
+
+        PlayScreen playScreen = (PlayScreen) game.getScreen();
+        playScreen.handleMousePressed(screenX, screenY, mouseButton);
+
+        return true;
     }
 
     @Override
@@ -45,6 +54,7 @@ public class InputHandler implements InputProcessor {
             TitleScreen titleScreen = (TitleScreen) game.getScreen();
             if(titleScreen.getPlayButton().isHovered()) {
                 game.setScreen(new PlayScreen(game));
+                AssetLoader.gameStartEnd.play();
                 titleScreen.dispose();
             } else if(titleScreen.getRulesButton().isHovered()) {
                 game.setScreen(new RulesScreen(game));
@@ -60,7 +70,6 @@ public class InputHandler implements InputProcessor {
                 rulesScreen.dispose();
             }
 
-            // TODO: implement slideshow
             else if(rulesScreen.getPrevButton().isHovered()) {
                 rulesScreen.previousSlide();
             }
@@ -71,12 +80,16 @@ public class InputHandler implements InputProcessor {
         }
 
         else if(game.getScreen() instanceof PlayScreen) {
-            // TODO: implement piece movement
             PlayScreen playScreen = (PlayScreen) game.getScreen();
+
             if(playScreen.getQuitButton().isHovered()) {
                 game.setScreen(new TitleScreen(game));
+                AssetLoader.gameStartEnd.play();
                 playScreen.dispose();
+                return true;
             }
+
+            playScreen.handleMouseReleased(screenX, screenY, mouseButton);
         }
 
         return true;

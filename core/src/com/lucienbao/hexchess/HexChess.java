@@ -11,8 +11,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.lucienbao.utils.AssetLoader;
 import com.lucienbao.utils.InputHandler;
 
-import java.util.ArrayList;
-
 import static java.lang.Math.sqrt;
 
 public class HexChess extends Game {
@@ -28,6 +26,8 @@ public class HexChess extends Game {
 	public static final Color LIGHT_HEX_COLOR = new Color(0.95f, 0.62f, 0.99f, 1);
 	public static final Color MEDIUM_HEX_COLOR = new Color(0.91f, 0.16f, 0.99f, 1);
 	public static final Color DARK_HEX_COLOR = new Color(0.62f, 0f, 0.69f, 1); // nice
+	public static final Color MOVE_HEX_COLOR = new Color(0.3f, 0.1f, 0.3f, 1);
+	public static final Color HIGHLIGHT_HEX_COLOR = new Color(0.5f, 0f, 0.5f, 0.4f);
 
 	public static final Color BACKGROUND_COLOR = new Color(0.1f, 0.1f, 0.1f, 1);
 	public static final Color BUTTON_PASSIVE = new Color(0.71f, 0.05f, 0.79f, 1);

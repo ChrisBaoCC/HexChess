@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
 //		config.setWindowedMode(1920, 1080);
 		config.setForegroundFPS(60);
+		config.setBackBufferConfig(8,8,8,8,16,0, 4);
 		new Lwjgl3Application(new HexChess(), config);
 	}
 }
